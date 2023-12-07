@@ -1,30 +1,48 @@
 #!/usr/bin/env python3
 """creation of the FileStorage class"""
 import json
+from os import path
 from os.path import exists
 
 
 class FileStorage:
+    """serializes instance to a Json file"""
     __file_path = "file.json"
     __objects = {}
 
     def all(self):
-        return FileStorage.__objects
+        """returns the dictionary __objects"""
+        return self.__objects
 
     def new(self, obj):
-        key = f"{obj.__class__.name}.{obj.id}"
-        FileStorage.__objects[key] = obj
+        """sets in __objects the obj with the <obj class>.id"""
+        key = "{}.{}".format(obj.__class__.__name__, obj.id)
+        self.__objects[key] = obj
 
     def save(self):
-        serialized_objects = {key: obj.to_dict() for key, obj in FileStorage.__objects.items()}
-        with open(FileStorage.__file_path, 'w', encoding='utf-8') as file:
-            json.dump(serialized_objects, file)
+        """serializes __objects to the json file"""
+        obj_dict = {}
+        for key, value in self.__objects.items():
+            obj_dict[key] = value.to_dict()
+            with open(self.__file_path, 'w', encoding='utf-8')as file:
+                json.dump(obj_dict, file)
 
     def reload(self):
+        """deserializes the Json file to __objects"""
         if exists(FileStorage.__file_path):
-            with open(FileStorage.__file_path, 'r', encoding='utf-8') as file:
-                data = json.load(file)
-                for key, value in data.items():
-                    class_name, obj_id = key.split('.')
-                    obj = globals()[class_name](**value)
-                    FileStorage.__objects[key] = obj
+            with open(self.__file_path, 'r', encoding='utf-8') as file:
+                obj_dict = json.load(file)
+
+
+            from models.base_model import BaseModel
+
+
+            for key, value in obj_dict.items():
+                class_name, obj_id = key.split('.')
+                obj_instance = BaseModel(**value if class_name == 'BaseModel' else None)
+                if obj_instance:
+                    self.__objects[key] = obj_instance
+
+
+storage = FileStorage()
+storage.reload()
