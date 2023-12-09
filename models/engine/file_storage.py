@@ -32,14 +32,13 @@ class FileStorage:
         if exists(FileStorage.__file_path):
             with open(self.__file_path, 'r', encoding='utf-8') as file:
                 obj_dict = json.load(file)
+                from models.base_model import BaseModel
 
-
-            from models.base_model import BaseModel
-
-
-            for key, value in obj_dict.items():
-                class_name, obj_id = key.split('.')
-                obj_instance = BaseModel(**value if class_name == 'BaseModel' else None)
+                for key, value in obj_dict.items():
+                    class_name, obj_id = key.split('.')
+                    obj_instance = (
+                        BaseModel(**value if class_name == 'BaseModel' else None)
+                            )
                 if obj_instance:
                     self.__objects[key] = obj_instance
 
