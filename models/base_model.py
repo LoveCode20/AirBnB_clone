@@ -36,7 +36,9 @@ class BaseModel:
         obj_dict = self.__dict__.copy()
         """add __class__ key with the same class name"""
         obj_dict['__class__'] = self.__class__.__name__
-        """convert the created_at and the updated_at to ISO to ease the transfer"""
+        """
+        convert the created_at and the updated_at to ISO to ease the transfer
+        """
         obj_dict['created_at'] = self.created_at.isoformat()
         obj_dict['updated_at'] = self.updated_at.isoformat()
         return obj_dict
