@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Command Interpreter"""
+"""
+Command Interpreter
+"""
 
 import cmd
 import sys
