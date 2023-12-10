@@ -6,7 +6,7 @@ for the other classes
 import models
 import uuid
 from datetime import datetime
-
+from models.engine.file_storage import storage
 
 
 class BaseModel:

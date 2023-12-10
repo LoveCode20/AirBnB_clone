@@ -1,14 +1,11 @@
-#!/usr/bin/python3
-"""
-Review module
-"""
+#!/usr/bin/env python3
+"""Review class module"""
+
 from models.base_model import BaseModel
 
 
 class Review(BaseModel):
-    """
-    Attributes for review class
-    """
+    """Review class"""
     place_id = ""
     user_id = ""
     text = ""

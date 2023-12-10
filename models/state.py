@@ -1,12 +1,9 @@
-#!/usr/bin/python3
-"""
-state module
-"""
+#!/usr/bin/env python3
+"""State class module"""
+
 from models.base_model import BaseModel
 
 
 class State(BaseModel):
-    """
-    state class attribute
-    """
+    """State class"""
     name = ""

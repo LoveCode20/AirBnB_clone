@@ -1,12 +1,9 @@
-#!/usr/bin/python3
-"""
-Amenity module
-"""
+#!/usr/bin/env python3
+"""Amenity class module"""
+
 from models.base_model import BaseModel
 
 
 class Amenity(BaseModel):
-    """
-    amenity class attributes
-    """
-    name = " " 
+    """Amenity class"""
+    name = ""

@@ -3,12 +3,12 @@
 
 import cmd
 import sys
-from models.engine.file_storage import storage
+from models import storage
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
 from models.city import City
-from models.amenity import amenity
+from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 
@@ -16,7 +16,16 @@ from models.review import Review
 class HBNBCommand(cmd.Cmd):
     """Command Interpreter Class"""
     prompt = "(hbnb) "
-    classes = ["BaseModel", "User", "State", "Amenity", "Place", "Review"]
+
+    classes = {
+            'BaseModel': BaseModel,
+            'User': User,
+            'State': State,
+            'City': City,
+            'Amenity': Amenity,
+            'Place': Place,
+            'Review': Review
+            }
 
     def emptyline(self):
         """Do nothing on empty input line"""
@@ -44,8 +53,8 @@ class HBNBCommand(cmd.Cmd):
         if args[0] not in self.classes:
             print("** class doesn't exist **")
             return
-        new_instance = eval(f"(args[0])()")
-        storage.save()
+        new_instance = eval(args[0])()
+        new_instance.save()
         print(new_instance.id)
 
     def do_show(self, arg):
