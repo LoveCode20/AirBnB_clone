@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Command Interpreter"""
+
 import cmd
 import sys
 from models.engine.file_storage import storage
@@ -22,8 +23,7 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_quit(self, arg):
-        """
-        Quit command to exit the program"""
+        """Quit command to exit the program"""
         return True
 
     def do_EOF(self, arg):
